@@ -1,15 +1,34 @@
 import React, { Component } from 'react';
 
 class CommentBox extends Component {
-	constructor(props) {
-		super(props);
-	}
+	addComment = e => {
+		e.preventDefault();
 
+		const comment = e.target.elements.comment.value.trim();
+		const name = e.target.elements.name.value.trim();
+
+		if (name && comment) {
+			const commentObject = { name, comment };
+
+			this.props.handleAddComment(commentObject);
+
+			/*global Ably*/
+			const channel = Ably.channels.get('comments');
+			channel.publish('add_comment', commentObject, error => {
+				if (error) {
+					console.log('Unable to publish message; err = ' + error.message);
+				}
+			});
+
+			e.target.elements.comment.value = '';
+			e.target.elements.name.value = '';
+		}
+	};
 	render() {
 		return (
-			<div className="container">
+			<div>
 				<h1 className="title">Kindly leave your thoughts below</h1>
-				<form onSubmit={this.addComment}>
+				<form onSubmit={this.addComment} autoComplete="off">
 					<div className="field">
 						<div className="control">
 							<input type="text" className="input" name="name" placeholder="Your name" />

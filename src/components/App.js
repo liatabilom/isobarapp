@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from './axios';
 import CommentBox from './CommentBox';
 import Comments from './Comments';
 
@@ -12,9 +11,24 @@ class App extends Component {
 		};
 	}
 
-	getApi = () => {};
+	componentDidMount() {
+		/*global Ably*/
+		const channel = Ably.channels.get('comments');
 
-	componentDidMount() {}
+		channel.attach();
+		channel.once('attached', () => {
+			channel.history((error, page) => {
+				const comments = Array.from(page.items, item => item.data);
+
+				this.setState({ comments });
+
+				channel.subscribe(msg => {
+					const commentObject = msg.data;
+					this.handleAddComment(commentObject);
+				});
+			});
+		});
+	}
 
 	handleAddComment = comment => {
 		this.setState(prevState => {

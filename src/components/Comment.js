@@ -8,11 +8,11 @@ class Comment extends Component {
 					<p className="image is-64x64">
 						<img src="https://bulma.io/images/placeholders/128x128.png" alt="Avatar" />
 					</p>
+					<strong>{this.props.comment.name}</strong>
 				</figure>
 				<div className="media-content">
 					<div className="content">
 						<p>
-							<strong>{this.props.comment.name}</strong>
 							<br />
 							{this.props.comment.comment}
 						</p>

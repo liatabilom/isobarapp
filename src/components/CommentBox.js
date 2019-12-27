@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import './CommentBox.css';
 
 class CommentBox extends Component {
-	addComment = e => {
-		e.preventDefault();
+	addComment = event => {
+		event.preventDefault();
 
-		const comment = e.target.elements.comment.value.trim();
-		const name = e.target.elements.name.value.trim();
-		const title = e.target.elements.title.value.toUpperCase().trim();
+		const comment = event.target.elements.comment.value.trim();
+		const name = event.target.elements.name.value.trim();
+		const title = event.target.elements.title.value.toUpperCase().trim();
 
 		if (name && comment && title) {
 			const commentObject = { name, comment, title };
@@ -22,9 +22,9 @@ class CommentBox extends Component {
 				}
 			});
 
-			e.target.elements.comment.value = '';
-			e.target.elements.name.value = '';
-			e.target.elements.title.value = '';
+			event.target.elements.comment.value = '';
+			event.target.elements.name.value = '';
+			event.target.elements.title.value = '';
 		}
 	};
 

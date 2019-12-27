@@ -10,7 +10,7 @@ class EditComment extends Component {
 
 	updateComment = event => {
 		this.setState({
-			editedText: event.target.elements.comments.value.trim(),
+			editedText: event.target.value.trim(),
 		});
 	};
 

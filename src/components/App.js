@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import CommentBox from './CommentBox';
 import Comments from './Comments';
-import Voting from './Voting';
 
 class App extends Component {
 	constructor(props) {
@@ -15,6 +14,7 @@ class App extends Component {
 	componentDidMount() {
 		/*global Ably*/
 		const channel = Ably.channels.get('comments');
+		console.log(channel);
 
 		channel.attach();
 		channel.once('attached', () => {
@@ -46,8 +46,7 @@ class App extends Component {
 					<div className="columns">
 						<div className="column is-half is-offset-one-quarter">
 							<CommentBox handleAddComment={this.handleAddComment} />
-							<Comments comments={this.state.comments} />
-							<Voting />
+							<Comments comments={this.state.comments} newComment={this.handleAddComment} />
 						</div>
 					</div>
 				</div>

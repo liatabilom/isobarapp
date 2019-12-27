@@ -2,18 +2,15 @@ import React, { Component } from 'react';
 import './CommentBox.css';
 
 class CommentBox extends Component {
-	constructor(props) {
-		super(props);
-	}
-
 	addComment = e => {
 		e.preventDefault();
 
 		const comment = e.target.elements.comment.value.trim();
 		const name = e.target.elements.name.value.trim();
+		const title = e.target.elements.title.value.toUpperCase().trim();
 
-		if (name && comment) {
-			const commentObject = { name, comment };
+		if (name && comment && title) {
+			const commentObject = { name, comment, title };
 
 			this.props.handleAddComment(commentObject);
 
@@ -27,6 +24,7 @@ class CommentBox extends Component {
 
 			e.target.elements.comment.value = '';
 			e.target.elements.name.value = '';
+			e.target.elements.title.value = '';
 		}
 	};
 
@@ -56,7 +54,7 @@ class CommentBox extends Component {
 										<input
 											type="text"
 											className="input"
-											name="name"
+											name="title"
 											placeholder="Give us the best title you have!"
 										/>
 									</div>
@@ -79,9 +77,6 @@ class CommentBox extends Component {
 						</h2>
 					</div>
 					<br />
-				</div>
-				<div className="footer">
-					<h2></h2>
 				</div>
 			</div>
 		);
